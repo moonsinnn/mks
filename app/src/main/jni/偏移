@@ -1,0 +1,9 @@
+#define GNames_Offset 0x6f0bcb4
+#define GEngine_Offset 0xcb15820 //ULocalPlayer
+#define GEngine_Offset 0xcb34e08 //UEngine
+#define GUObject_Offset 0xc8e1270
+#define GetActorArray_Offset 0x0
+#define Canvas_Map_Offset 0xc503a40
+#define ProcessEvent_Offset 0xc443be9
+#define GNativeAndroidApp_Offset 0xc443a08
+#define Actors_Offset 0xa0

@@ -1,0 +1,3222 @@
+                for (int i = 0; i < Actors.size(); i++) {
+                    auto Actor = Actors[i];
+                    if (isObjectInvalid(Actor))
+                        continue;
+                        
+  if (剩下人数) {
+                if (Actor->IsA(ASTExtraGameStateBase::StaticClass())) {
+                auto InGame = (ASTExtraGameStateBase *) Actor;
+                std::string s;               
+                s += "本局剩余玩家:" ;
+                s += std::to_string((int) InGame->AlivePlayerNum);                                
+   auto textSize = ImGui::CalcTextSize2(s.c_str(), 0, 37);
+绘制字体描边(37, (glWidth/2) - (textSize.x / 2), 450, ImColor(248,248,255), s.c_str());     
+        }
+}
+                        
+                    if (Actor->IsA(ASTExtraPlayerCharacter::StaticClass())) {
+
+                            //auto Player = (ASTExtraPlayerCharacter *) Actor;
+                            long PlayerBoxClrCf = IM_COL32(0, 255, 47, 255);
+                            long PlayerBoxClrCf2 = IM_COL32(0, 255, 47, 25);
+                            auto Player = (ASTExtraPlayerCharacter *) Actor;
+                            if (!localController->LineOfSightTo(Player, {0, 0, 0}, true)) {
+                                PlayerBoxClrCf = IM_COL32(255, 119, 0, 255);
+                                PlayerBoxClrCf2 = IM_COL32(255, 119, 0, 25);
+                            }
+                        float Distance = localPlayer->GetDistanceTo(Player) / 100.0f;
+
+                        if (Distance > 500.0f)
+                            continue;
+
+                        if (Player->PlayerKey == localController->PlayerKey)
+                            continue;
+
+                        if (Player->TeamID == localController->TeamID)
+                            continue;
+
+                        if (Player->bDead)
+                            continue;
+                            
+
+                         
+                         
+                if (Player->bEnsure)
+                    totalBots++;
+                else totalEnemies++;
+
+                        if (隐藏人机)
+                            if (Player->bEnsure)
+                                continue;
+                                
+                               
+auto HeadPos = Player->GetBonePos("Head", {});
+HeadPos.Z = HeadPos.Z + 1.0f;
+ImVec2 HeadPosSC;
+auto RootPos = Player->GetBonePos("Root", {});
+ImVec2 RootPosSC;
+FVector Root = Player->GetBonePos("Root", {});
+FVector Spin = Player->GetBonePos("Pelvis", {});
+FVector Spin2 = Player->GetBonePos("spine_03", {});
+auto Pelvis = Player->GetBonePos("Pelvis", {});
+ImVec2 pelvisPoSC;
+auto upper_r = Player->GetBonePos("upperarm_r", {});
+ImVec2 upper_rPoSC;
+auto lowerarm_r = Player->GetBonePos("lowerarm_r", {});
+ImVec2 lowerarm_rPoSC;
+auto hand_r = Player->GetBonePos("hand_r", {});
+ImVec2 hand_rPoSC;
+auto upper_l = Player->GetBonePos("upperarm_l", {});
+ImVec2 upper_lPoSC;
+auto lowerarm_l = Player->GetBonePos("lowerarm_l", {});
+ImVec2 lowerarm_lSC;
+auto hand_l = Player->GetBonePos("hand_l", {});
+ImVec2 hand_lPoSC;
+auto thigh_l = Player->GetBonePos("thigh_l", {});
+ImVec2 thigh_lPoSC;
+auto calf_l = Player->GetBonePos("calf_l", {});
+ImVec2 calf_lPoSC;
+auto foot_l = Player->GetBonePos("foot_l", {});
+ImVec2 foot_lPoSC;
+auto thigh_r = Player->GetBonePos("thigh_r", {});
+ImVec2 thigh_rPoSC;
+auto calf_r = Player->GetBonePos("calf_r", {});
+ImVec2 calf_rPoSC;
+auto foot_r = Player->GetBonePos("foot_r", {});
+ImVec2 foot_rPoSC;
+auto neck_01 = Player->GetBonePos("neck_01", {});
+ImVec2 neck_01PoSC;
+auto spine_01 = Player->GetBonePos("spine_01", {});
+ImVec2 spine_01PoSC;
+auto spine_02 = Player->GetBonePos("spine_02", {});
+ImVec2 spine_02PoSC;
+auto spine_03 = Player->GetBonePos("spine_03", {});
+ImVec2 spine_03PoSC;
+if (W2S(HeadPos, (FVector2D *) & HeadPosSC) && W2S(upper_r, (FVector2D *) & upper_rPoSC) && W2S(upper_l, (FVector2D *) & upper_lPoSC) && W2S(lowerarm_r, (FVector2D *) & lowerarm_rPoSC) && W2S(hand_r, (FVector2D *) & hand_rPoSC) && W2S(lowerarm_l, (FVector2D *) & lowerarm_lSC) && W2S(hand_l, (FVector2D *) & hand_lPoSC) && W2S(thigh_l, (FVector2D *) & thigh_lPoSC) && W2S(calf_l, (FVector2D *) & calf_lPoSC) && W2S(foot_l, (FVector2D *) & foot_lPoSC) && W2S(thigh_r, (FVector2D *) & thigh_rPoSC) && W2S(calf_r, (FVector2D *) & calf_rPoSC) && W2S(foot_r, (FVector2D *) & foot_rPoSC) && W2S(neck_01, (FVector2D *) & neck_01PoSC) && W2S(Pelvis, (FVector2D *) & pelvisPoSC) && W2S(RootPos, (FVector2D *) & RootPosSC) && W2S(spine_01, (FVector2D *) & spine_01PoSC)&& W2S(spine_02, (FVector2D *) & spine_02PoSC)&& W2S(spine_03, (FVector2D *) & spine_03PoSC)) {
+
+					if (瞄准线) {
+
+					ASTExtraPlayerCharacter *Target = GetTargetForAimBot();
+                    
+                  
+                    long PlayerAimLineColor = IM_COL32(0, 255, 0, 255);
+                    
+                    
+                    
+
+                    if (Target) {
+                    FVector HEAD = Target->GetBonePos("Head", {});
+                        
+                    ImVec2 HeadPosSC;
+                        if (W2S(HEAD, (FVector2D *)&HeadPosSC)) {
+                    
+                           
+                          draw->AddLine({(float) glWidth / 2,  (float) (glHeight / 2)}, HeadPosSC,
+                                              PlayerAimLineColor, 1.0f);
+                        }    
+                        
+						}
+						}										
+
+if (射线){
+if (Player->bEnsure)  {
+draw->AddLine({(float) glWidth / 2,75}, HeadPosSC,IM_COL32(255,255,255,255),0.0f);
+}else{
+draw->AddLine({(float) glWidth / 2,75}, HeadPosSC,GetRandomColorByIndex(Player->TeamID),0.0f);
+}
+}
+					//背敌
+FVector2D screen(glWidth, glHeight);
+FVector2D location(RootPosSC.x, HeadPosSC.y);
+int borders = isOutsideSafezone(location, screen);
+if (背敌 && borders != 0) {
+float Distance = localPlayer->GetDistanceTo(Player) / 100.0f;
+std::string s;
+s += std::to_string((int)Distance);
+s += "M";
+float mScale = glHeight / (float) 1080;
+auto hintDotRenderPos = pushToScreenBorder(location, screen, borders, (int)((mScale * 100) / 3));
+auto hintTextRenderPos = pushToScreenBorder(location, screen, borders, -(int)((mScale * 36)));
+draw->AddCircleFilled(ImVec2(hintDotRenderPos.X, hintDotRenderPos.Y), mScale * 100, IM_COL32(255, 0, 0, 128), 0);
+draw->AddText(NULL, ((float)density / 20.0f), ImVec2(hintTextRenderPos.X, hintTextRenderPos.Y), IM_COL32(255, 255, 255, 255), s.c_str());
+}
+
+if (方框) {
+float boxHeight = abs(HeadPosSC.y - RootPosSC.y);
+float boxWidth = boxHeight * 0.65f;
+ImVec2 vStart = {HeadPosSC.x - (boxWidth / 2), HeadPosSC.y};
+ImVec2 vEnd = {vStart.x + boxWidth, vStart.y + boxHeight};
+
+draw->AddRect(vStart, vEnd, PlayerBoxClrCf, 1.5f, 240, 1.7f);
+draw->AddRectFilled(vStart, vEnd, PlayerBoxClrCf2, 1.5f, 240);
+}
+
+if (骨骼) {
+long Chead,Cuparmr,Cuparml,Clowarmr,Clowarml,Cthighl,Cthighr,Ccalfl,Ccalfr,Cneck,Cpelvis,Cspine1,Cspine2,Cspine3;//颜色初始化
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("Head", {}), true))//头
+{
+Chead = IM_COL32(255, 0, 0, 255);
+}
+else
+{
+Chead = IM_COL32(0, 255, 0, 255); //看不见
+}
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("neck_01", {}), true))//脖子
+{
+Cneck = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Cneck = IM_COL32(0, 255, 0, 255); //看的见
+}
+
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("upperarm_r", {}), true))//上面的肩膀右
+{
+Cuparmr = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Cuparmr = IM_COL32(0, 255, 0, 255); //看的见
+}
+
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("upperarm_l", {}), true))//上面的肩膀左
+{
+Cuparml = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Cuparml = IM_COL32(0, 255, 0, 255); //看的见
+}
+
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("lowerarm_r", {}), true))//上面的手臂右
+{
+Clowarmr = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Clowarmr = IM_COL32(0, 255, 0, 255); //看的见
+}
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("lowerarm_l", {}), true))//上面的手臂左
+{
+Clowarml = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Clowarml = IM_COL32(0, 255, 0, 255); //看的见
+}
+
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("spine_03", {}), true))//脊柱3
+{
+Cspine3 = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Cspine3 = IM_COL32(0, 255, 0, 255); //看的见
+}
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("spine_02", {}), true))//脊柱2
+{
+Cspine2 = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Cspine2 = IM_COL32(0, 255, 0, 255); //看的见
+}
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("spine_01", {}), true))//脊柱2
+{
+Cspine1 = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Cspine1 = IM_COL32(0, 255, 0, 255); //看的见
+}
+
+
+
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("pelvis", {}), true))//骨盆
+{
+Cpelvis = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Cpelvis = IM_COL32(0, 255, 0, 255); //看的见
+}
+
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("thigh_l", {}), true))//大腿左
+{
+Cthighl = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Cthighl = IM_COL32(0, 255, 0, 255); //看的见
+}
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("thigh_r", {}), true))//大腿右
+{
+Cthighr = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Cthighr = IM_COL32(0, 255, 0, 255); //看的见
+}
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("calf_l", {}), true))//小腿左
+{
+Ccalfl = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Ccalfl = IM_COL32(0, 255, 0, 255); //看的见
+}
+if(!localController->LineOfSightTo(localController->PlayerCameraManager,Player->GetBonePos("calf_r", {}), true))//小腿右
+{
+Ccalfr = IM_COL32(255, 0, 0, 255); //看不见
+}
+else
+{
+Ccalfr = IM_COL32(0, 255, 0, 255); //看的见
+}
+
+float boxWidth = 7.f - Distance * 0.03;
+draw->AddCircle({HeadPosSC.x, HeadPosSC.y}, boxWidth, Chead, 0, 1.0f);
+draw->AddLine({upper_rPoSC.x, upper_rPoSC.y}, neck_01PoSC, Cneck, 1.0f);
+draw->AddLine({upper_lPoSC.x, upper_lPoSC.y}, neck_01PoSC, Cneck, 1.0f);
+draw->AddLine({upper_rPoSC.x, upper_rPoSC.y}, lowerarm_rPoSC, Cuparmr, 1.0f);
+draw->AddLine({lowerarm_rPoSC.x, lowerarm_rPoSC.y}, hand_rPoSC, Clowarmr, 1.0f);
+draw->AddLine({upper_lPoSC.x, upper_lPoSC.y}, lowerarm_lSC, Cuparml, 1.0f);
+draw->AddLine({lowerarm_lSC.x, lowerarm_lSC.y}, hand_lPoSC, Clowarml, 1.0f);
+draw->AddLine({thigh_rPoSC.x, thigh_rPoSC.y}, thigh_lPoSC, Cthighl, 1.0f);
+draw->AddLine({thigh_lPoSC.x, thigh_lPoSC.y}, calf_lPoSC, Cthighl, 1.0f);
+draw->AddLine({calf_lPoSC.x, calf_lPoSC.y}, foot_lPoSC, Ccalfl, 1.0f);
+draw->AddLine({thigh_rPoSC.x, thigh_rPoSC.y}, calf_rPoSC, Cthighr, 1.0f);
+draw->AddLine({calf_rPoSC.x, calf_rPoSC.y}, foot_rPoSC, Ccalfr, 1.0f);
+draw->AddLine({neck_01PoSC.x, neck_01PoSC.y}, spine_03PoSC, Cspine3, 1.0f);
+draw->AddLine({spine_03PoSC.x, spine_03PoSC.y}, spine_02PoSC, Cspine2, 1.0f);
+draw->AddLine({spine_02PoSC.x, spine_02PoSC.y}, spine_01PoSC, Cspine1, 1.0f);
+draw->AddLine({spine_01PoSC.x, spine_01PoSC.y}, pelvisPoSC, Cpelvis, 1.0f);
+draw->AddLine({neck_01PoSC.x, neck_01PoSC.y}, HeadPosSC, Cneck, 1.0f);
+}
+
+if(手持){
+auto rrrr = Player->GetBonePos("Head", {});
+auto WeaponManagerComponent = Player->WeaponManagerComponent;
+                                
+   if (WeaponManagerComponent) {
+        auto CurrentWeaponReplicated = (ASTExtraShootWeapon *)WeaponManagerComponent->CurrentWeaponReplicated;
+        if (CurrentWeaponReplicated) {
+            auto WeaponId = (int)CurrentWeaponReplicated->GetWeaponID();
+            auto wppp = CurrentWeaponReplicated->GetWeaponID();
+            if (WeaponId) {
+                auto Weapon_Name= CurrentWeaponReplicated->GetWeaponName().ToString();
+                TextureInfo textureInfo{};
+                switch (wppp) {
+                
+                //十字弩
+                case 107001:
+                if(Weapon_Name = "CrossBow"){
+                textureInfo = hand.十字弩;
+                //*name = "CrossBow";
+                }
+                break;
+                case 1070011:
+                if(Weapon_Name = "CrossBow"){
+                textureInfo = hand.十字弩;
+                //*name = "CrossBow";
+                }
+                break;
+                case 1070012:
+                if(Weapon_Name = "CrossBow"){
+                textureInfo = hand.十字弩;
+                //*name = "CrossBow";
+                }
+                break;
+                case 1070013:
+                if(Weapon_Name = "CrossBow"){
+                textureInfo = hand.十字弩;
+                //*name = "CrossBow";
+                }
+                break;
+                case 1070014:
+                if(Weapon_Name = "CrossBow"){
+                textureInfo = hand.十字弩;
+                //*name = "CrossBow";
+                }
+                break;
+                case 1070015:
+                if(Weapon_Name = "CrossBow"){
+                textureInfo = hand.十字弩;
+                //*name = "CrossBow";
+                }
+                break;
+                case 1070016:
+                if(Weapon_Name = "CrossBow"){
+                textureInfo = hand.十字弩;
+                //*name = "CrossBow";
+                }
+                break;
+                case 1070017:
+                if(Weapon_Name = "CrossBow"){
+                textureInfo = hand.十字弩;
+                //*name = "CrossBow";
+                }
+                break;
+                
+                //狗杂
+                case 101005:
+                if(Weapon_Name = "Groza"){
+                textureInfo = hand.Grozy;
+                //*name = "Groza";
+                }
+                break;
+                case 1010051:
+                if(Weapon_Name = "Groza"){
+                textureInfo = hand.Grozy;
+                //*name = "Groza";
+                }
+                break;
+                case 1010052:
+                if(Weapon_Name = "Groza"){
+                textureInfo = hand.Grozy;
+                //*name = "Groza";
+                }
+                break;
+                case 1010053:
+                if(Weapon_Name = "Groza"){
+                textureInfo = hand.Grozy;
+                //*name = "Groza";
+                }
+                break;
+                case 1010054:
+                if(Weapon_Name = "Groza"){
+                textureInfo = hand.Grozy;
+                //*name = "Groza";
+                }
+                break;
+                case 1010055:
+                if(Weapon_Name = "Groza"){
+                textureInfo = hand.Grozy;
+                //*name = "Groza";
+                }
+                break;
+                case 1010056:
+                if(Weapon_Name = "Groza"){
+                textureInfo = hand.Grozy;
+                //*name = "Groza";
+                }
+                break;
+                case 1010057:
+                if(Weapon_Name = "Groza"){
+                textureInfo = hand.Grozy;
+                //*name = "Groza";
+                }
+                break;
+
+                //SKS
+                case 103004:
+                if(Weapon_Name = "SKS"){
+                textureInfo = hand.SKS;
+                //*name = "SKS";
+                }
+                break;
+                case 1030041:
+                if(Weapon_Name = "SKS"){
+                textureInfo = hand.SKS;
+                //*name = "SKS";
+                }
+                break;
+                case 1030042:
+                if(Weapon_Name = "SKS"){
+                textureInfo = hand.SKS;
+                //*name = "SKS";
+                }
+                break;
+                case 1030043:
+                if(Weapon_Name = "SKS"){
+                textureInfo = hand.SKS;
+                //*name = "SKS";
+                }
+                break;
+                case 1030044:
+                if(Weapon_Name = "SKS"){
+                textureInfo = hand.SKS;
+                //*name = "SKS";
+                }
+                break;
+                case 1030045:
+                if(Weapon_Name = "SKS"){
+                textureInfo = hand.SKS;
+                //*name = "SKS";
+                }
+                break;
+                case 1030046:
+                if(Weapon_Name = "SKS"){
+                textureInfo = hand.SKS;
+                //*name = "SKS";
+                }
+                break;
+                case 1030047:
+                if(Weapon_Name = "SKS"){
+                textureInfo = hand.SKS;
+                //*name = "SKS";
+                }
+                break;
+                
+                //M249                               
+                case 105001:
+                if(Weapon_Name = "M249"){
+                textureInfo = hand.M249;
+                //*name = "M249";
+                }
+                break;
+                case 1050011:
+                if(Weapon_Name = "M249"){
+                textureInfo = hand.M249;
+                //*name = "M249";
+                }
+                break;
+                case 1050012:
+                if(Weapon_Name = "M249"){
+                textureInfo = hand.M249;
+                //*name = "M249";
+                }
+                break;
+                case 1050013:
+                if(Weapon_Name = "M249"){
+                textureInfo = hand.M249;
+                //*name = "M249";
+                }
+                break;
+                case 1050014:
+                if(Weapon_Name = "M249"){
+                textureInfo = hand.M249;
+                //*name = "M249";
+                }
+                break;
+                case 1050015:
+                if(Weapon_Name = "M249"){
+                textureInfo = hand.M249;
+                //*name = "M249";
+                }
+                break;
+                case 1050016:
+                if(Weapon_Name = "M249"){
+                textureInfo = hand.M249;
+                //*name = "M249";
+                }
+                break;
+                case 1050017:
+                if(Weapon_Name = "M249"){
+                textureInfo = hand.M249;
+                //*name = "M249";
+                }
+                break;
+                
+                //DP28
+                case 105002:
+                if(Weapon_Name = "DP28"){
+                textureInfo = hand.DP28;
+                //*name = "DP28";
+                }
+                break;
+                case 1050021:
+                if(Weapon_Name = "DP28"){
+                textureInfo = hand.DP28;
+                //*name = "DP28";
+                }
+                break;
+                case 1050022:
+                if(Weapon_Name = "DP28"){
+                textureInfo = hand.DP28;
+                //*name = "DP28";
+                }
+                break;
+                case 1050023:
+                if(Weapon_Name = "DP28"){
+                textureInfo = hand.DP28;
+                //*name = "DP28";
+                }
+                break;
+                case 1050024:
+                if(Weapon_Name = "DP28"){
+                textureInfo = hand.DP28;
+                //*name = "DP28";
+                }
+                break;
+                case 1050025:
+                if(Weapon_Name = "DP28"){
+                textureInfo = hand.DP28;
+                //*name = "DP28";
+                }
+                break;
+                case 1050026:
+                if(Weapon_Name = "DP28"){
+                textureInfo = hand.DP28;
+                //*name = "DP28";
+                }
+                break;
+                case 1050027:
+                if(Weapon_Name = "DP28"){
+                textureInfo = hand.DP28;
+                //*name = "DP28";
+                }
+                break;
+                
+                //Kar98k
+                case 103001:
+                if(Weapon_Name = "Kar98k"){
+                textureInfo = hand.K98;
+                //*name = "Kar98k";
+                }
+                break;
+                case 1030011:
+                if(Weapon_Name = "Kar98k"){
+                textureInfo = hand.K98;
+                //*name = "Kar98k";
+                }
+                break;
+                case 1030012:
+                if(Weapon_Name = "Kar98k"){
+                textureInfo = hand.K98;
+                //*name = "Kar98k";
+                }
+                break;
+                case 1030013:
+                if(Weapon_Name = "Kar98k"){
+                textureInfo = hand.K98;
+                //*name = "Kar98k";
+                }
+                break;
+                case 1030014:
+                if(Weapon_Name = "Kar98k"){
+                textureInfo = hand.K98;
+                //*name = "Kar98k";
+                }
+                break;
+                case 1030015:
+                if(Weapon_Name = "Kar98k"){
+                textureInfo = hand.K98;
+                //*name = "Kar98k";
+                }
+                break;
+                case 1030016:
+                if(Weapon_Name = "Kar98k"){
+                textureInfo = hand.K98;
+                //*name = "Kar98k";
+                }
+                break;
+                case 1030017:
+                if(Weapon_Name = "Kar98k"){
+                textureInfo = hand.K98;
+                //*name = "Kar98k";
+                }
+                break;
+                
+                //R1895
+                case 106003:
+                if(Weapon_Name = "R1895"){
+                textureInfo = hand.P18C;
+                //*name = "R1895";
+                }
+                break;
+                case 1060031:
+                if(Weapon_Name = "R1895"){
+                textureInfo = hand.P18C;
+                //*name = "R1895";
+                }
+                break;
+                case 1060032:
+                if(Weapon_Name = "R1895"){
+                textureInfo = hand.P18C;
+                //*name = "R1895";
+                }
+                break;
+                case 1060033:
+                if(Weapon_Name = "R1895"){
+                textureInfo = hand.P18C;
+                //*name = "R1895";
+                }
+                break;
+                case 1060034:
+                if(Weapon_Name = "R1895"){
+                textureInfo = hand.P18C;
+                //*name = "R1895";
+                }
+                break;
+                case 1060035:
+                if(Weapon_Name = "R1895"){
+                textureInfo = hand.P18C;
+                //*name = "R1895";
+                }
+                break;
+                case 1060036:
+                if(Weapon_Name = "R1895"){
+                textureInfo = hand.P18C;
+                //*name = "R1895";
+                }
+                break;
+                case 1060037:
+                if(Weapon_Name = "R1895"){
+                textureInfo = hand.P18C;
+                //*name = "R1895";
+                }
+                break;
+                
+                //P18C
+                case 106005:
+                if(Weapon_Name = "R45"){
+                textureInfo = hand.P18C;
+                //*name = "R45";
+                }
+                break;
+                case 1060051:
+                if(Weapon_Name = "R45"){
+                textureInfo = hand.P18C;
+                //*name = "R45";
+                }
+                break;
+                case 1060052:
+                if(Weapon_Name = "R45"){
+                textureInfo = hand.P18C;
+                //*name = "R45";
+                }
+                break;
+                case 1060053:
+                if(Weapon_Name = "R45"){
+                textureInfo = hand.P18C;
+                //*name = "R45";
+                }
+                break;
+                case 1060054:
+                if(Weapon_Name = "R45"){
+                textureInfo = hand.P18C;
+                //*name = "R45";
+                }
+                break;
+                case 1060055:
+                if(Weapon_Name = "R45"){
+                textureInfo = hand.P18C;
+                //*name = "R45";
+                }
+                break;
+                case 1060056:
+                if(Weapon_Name = "R45"){
+                textureInfo = hand.P18C;
+                //*name = "R45";
+                }
+                break;
+                case 1060057:
+                if(Weapon_Name = "R45"){
+                textureInfo = hand.P18C;
+                //*name = "R45";
+                }
+                break;
+                
+                //AKM
+                case 101001:
+                if(Weapon_Name = "AKM"){
+                textureInfo = hand.AKM;
+                //*name = "AKM";
+                }
+                break;
+                case 1010011:
+                if(Weapon_Name = "AKM"){
+                textureInfo = hand.AKM;
+                //*name = "AKM";
+                }
+                break;
+                case 1010012:
+                if(Weapon_Name = "AKM"){
+                textureInfo = hand.AKM;
+                //*name = "AKM";
+                }
+                break;
+                case 1010013:
+                if(Weapon_Name = "AKM"){
+                textureInfo = hand.AKM;
+                //*name = "AKM";
+                }
+                break;
+                case 1010014:
+                if(Weapon_Name = "AKM"){
+                textureInfo = hand.AKM;
+                //*name = "AKM";
+                }
+                break;
+                case 1010015:
+                if(Weapon_Name = "AKM"){
+                textureInfo = hand.AKM;
+                //*name = "AKM";
+                }
+                break;
+                case 1010016:
+                if(Weapon_Name = "AKM"){
+                textureInfo = hand.AKM;
+                //*name = "AKM";
+                }
+                break;
+                case 1010017:
+                if(Weapon_Name = "AKM"){
+                textureInfo = hand.AKM;
+                //*name = "AKM";
+                }
+                break;
+                
+                //G36C
+                case 101010:
+                if(Weapon_Name = "G36C"){
+                textureInfo = hand.G36C;
+                //*name = "G36C";
+                }
+                break;
+                case 1010101:
+                if(Weapon_Name = "G36C"){
+                textureInfo = hand.G36C;
+                //*name = "G36C";
+                }
+                break;
+                case 1010102:
+                if(Weapon_Name = "G36C"){
+                textureInfo = hand.G36C;
+                //*name = "G36C";
+                }
+                break;
+                case 1010103:
+                if(Weapon_Name = "G36C"){
+                textureInfo = hand.G36C;
+                //*name = "G36C";
+                }
+                break;
+                case 1010104:
+                if(Weapon_Name = "G36C"){
+                textureInfo = hand.G36C;
+                //*name = "G36C";
+                }
+                break;
+                case 1010105:
+                if(Weapon_Name = "G36C"){
+                textureInfo = hand.G36C;
+                //*name = "G36C";
+                }
+                break;
+                case 1010106:
+                if(Weapon_Name = "G36C"){
+                textureInfo = hand.G36C;
+                //*name = "G36C";
+                }
+                break;
+                case 1010107:
+                if(Weapon_Name = "G36C"){
+                textureInfo = hand.G36C;
+                //*name = "G36C";
+                }
+                break;
+                
+                //FAMAS                
+                case 101100:
+                if(Weapon_Name = "FAMAS"){
+                //*name = "FAMAS";
+                }
+                break;
+               case 1011001:
+                if(Weapon_Name = "FAMAS"){
+                //*name = "FAMAS";
+                }
+                break;
+               case 1011002:
+                if(Weapon_Name = "FAMAS"){
+                //*name = "FAMAS";
+                }
+                break;
+               case 1011003:
+                if(Weapon_Name = "FAMAS"){
+                //*name = "FAMAS";
+                }
+                break;
+               case 1011004:
+                if(Weapon_Name = "FAMAS"){
+                //*name = "FAMAS";
+                }
+                break;
+               case 1011005:
+                if(Weapon_Name = "FAMAS"){
+                //*name = "FAMAS";
+                }
+                break;
+               case 1011006:
+                if(Weapon_Name = "FAMAS"){
+                //*name = "FAMAS";
+                }
+                break;
+               case 1011007:
+                if(Weapon_Name = "FAMAS"){
+                //*name = "FAMAS";
+                }
+                break;
+                
+                //AUG
+                case 101006:
+                if(Weapon_Name = "AUG"){
+                textureInfo = hand.AUG;
+                //*name = "AUG";
+                }
+                break;
+                case 1010061:
+                if(Weapon_Name = "AUG"){
+                textureInfo = hand.AUG;
+                //*name = "AUG";
+                }
+                break;
+                case 1010062:
+                if(Weapon_Name = "AUG"){
+                textureInfo = hand.AUG;
+                //*name = "AUG";
+                }
+                break;
+                case 1010063:
+                if(Weapon_Name = "AUG"){
+                textureInfo = hand.AUG;
+                //*name = "AUG";
+                }
+                break;
+                case 1010064:
+                if(Weapon_Name = "AUG"){
+                textureInfo = hand.AUG;
+                //*name = "AUG";
+                }
+                break;
+                case 1010065:
+                if(Weapon_Name = "AUG"){
+                textureInfo = hand.AUG;
+                //*name = "AUG";
+                }
+                break;
+                case 1010066:
+                if(Weapon_Name = "AUG"){
+                textureInfo = hand.AUG;
+                //*name = "AUG";
+                }
+                break;
+                case 1010067:
+                if(Weapon_Name = "AUG"){
+                textureInfo = hand.AUG;
+                //*name = "AUG";
+                }
+                break;
+                
+                //Mini14
+                case 103006:
+                if(Weapon_Name = "Mini14"){
+                textureInfo = hand.Mini14;
+                //*name = "Mini14";
+                }
+                break;
+                case 1030061:
+                if(Weapon_Name = "Mini14"){
+                textureInfo = hand.Mini14;
+                //*name = "Mini14";
+                }
+                break;
+                case 1030062:
+                if(Weapon_Name = "Mini14"){
+                textureInfo = hand.Mini14;
+                //*name = "Mini14";
+                }
+                break;
+                case 1030063:
+                if(Weapon_Name = "Mini14"){
+                textureInfo = hand.Mini14;
+                //*name = "Mini14";
+                }
+                break;
+                case 1030064:
+                if(Weapon_Name = "Mini14"){
+                textureInfo = hand.Mini14;
+                //*name = "Mini14";
+                }
+                break;
+                case 1030065:
+                if(Weapon_Name = "Mini14"){
+                textureInfo = hand.Mini14;
+                //*name = "Mini14";
+                }
+                break;
+                case 1030066:
+                if(Weapon_Name = "Mini14"){
+                textureInfo = hand.Mini14;
+                //*name = "Mini14";
+                }
+                break;
+                case 1030067:
+                if(Weapon_Name = "Mini14"){
+                textureInfo = hand.Mini14;
+                //*name = "Mini14";
+                }
+                break;
+                
+                //PP19
+                case 102005:
+                if(Weapon_Name = "PP19"){
+                textureInfo = hand.PP19;
+                //*name = "PP19";
+                }
+                break;
+                case 1020051:
+                if(Weapon_Name = "PP19"){
+                textureInfo = hand.PP19;
+                //*name = "PP19";
+                }
+                break;
+                case 1020052:
+                if(Weapon_Name = "PP19"){
+                textureInfo = hand.PP19;
+                //*name = "PP19";
+                }
+                break;
+                case 1020053:
+                if(Weapon_Name = "PP19"){
+                textureInfo = hand.PP19;
+                //*name = "PP19";
+                }
+                break;
+                case 1020054:
+                if(Weapon_Name = "PP19"){
+                textureInfo = hand.PP19;
+                //*name = "PP19";
+                }
+                break;
+                case 1020055:
+                if(Weapon_Name = "PP19"){
+                textureInfo = hand.PP19;
+                //*name = "PP19";
+                }
+                break;
+                case 1020056:
+                if(Weapon_Name = "PP19"){
+                textureInfo = hand.PP19;
+                //*name = "PP19";
+                }
+                break;
+                case 1020057:
+                if(Weapon_Name = "PP19"){
+                textureInfo = hand.PP19;
+                //*name = "PP19";
+                }
+                break;
+                
+                //M16A4
+                case 101002:
+                if(Weapon_Name = "M16A4"){
+                textureInfo = hand.M416A4;
+                //*name = "M16A4";
+                }
+                break;
+                case 1010021:
+                if(Weapon_Name = "M16A4"){
+                textureInfo = hand.M416A4;
+                //*name = "M16A4";
+                }
+                break;
+                case 1010022:
+                if(Weapon_Name = "M16A4"){
+                textureInfo = hand.M416A4;
+                //*name = "M16A4";
+                }
+                break;
+                case 1010023:
+                if(Weapon_Name = "M16A4"){
+                textureInfo = hand.M416A4;
+                //*name = "M16A4";
+                }
+                break;
+                case 1010024:
+                if(Weapon_Name = "M16A4"){
+                textureInfo = hand.M416A4;
+                //*name = "M16A4";
+                }
+                break;
+                case 1010025:
+                if(Weapon_Name = "M16A4"){
+                textureInfo = hand.M416A4;
+                //*name = "M16A4";
+                }
+                break;
+                case 1010026:
+                if(Weapon_Name = "M16A4"){
+                textureInfo = hand.M416A4;
+                //*name = "M16A4";
+                }
+                break;
+                case 1010027:
+                if(Weapon_Name = "M16A4"){
+                textureInfo = hand.M416A4;
+                //*name = "M16A4";
+                }
+                break;
+                
+                //死嘎
+                case 101003:
+                if(Weapon_Name = "SCAR"){
+                textureInfo = hand.Scar;
+                //*name = "SCAR";
+                }
+                break;
+                case 1010031:
+                if(Weapon_Name = "SCAR"){
+                textureInfo = hand.Scar;
+                //*name = "SCAR";
+                }
+                break;
+                case 1010032:
+                if(Weapon_Name = "SCAR"){
+                textureInfo = hand.Scar;
+                //*name = "SCAR";
+                }
+                break;
+                case 1010033:
+                if(Weapon_Name = "SCAR"){
+                textureInfo = hand.Scar;
+                //*name = "SCAR";
+                }
+                break;
+                case 1010034:
+                if(Weapon_Name = "SCAR"){
+                textureInfo = hand.Scar;
+                //*name = "SCAR";
+                }
+                break;
+                case 1010035:
+                if(Weapon_Name = "SCAR"){
+                textureInfo = hand.Scar;
+                //*name = "SCAR";
+                }
+                break;
+                case 1010036:
+                if(Weapon_Name = "SCAR"){
+                textureInfo = hand.Scar;
+                //*name = "SCAR";
+                }
+                break;
+                case 1010037:
+                if(Weapon_Name = "SCAR"){
+                textureInfo = hand.Scar;
+                //*name = "SCAR";
+                }
+                break;
+                
+                //Win94
+                case 103008:
+                if(Weapon_Name = "Win94"){
+                textureInfo = hand.WIN94;
+                //*name = "WIN94";
+                }
+                break;
+                case 1030081:
+                if(Weapon_Name = "Win94"){
+                textureInfo = hand.WIN94;
+                //*name = "WIN94";
+                }
+                break;
+                case 1030082:
+                if(Weapon_Name = "Win94"){
+                textureInfo = hand.WIN94;
+                //*name = "WIN94";
+                }
+                break;
+                case 1030083:
+                if(Weapon_Name = "Win94"){
+                textureInfo = hand.WIN94;
+                //*name = "WIN94";
+                }
+                break;
+                case 1030084:
+                if(Weapon_Name = "Win94"){
+                textureInfo = hand.WIN94;
+                //*name = "WIN94";
+                }
+                break;
+                case 1030085:
+                if(Weapon_Name = "Win94"){
+                textureInfo = hand.WIN94;
+                //*name = "WIN94";
+                }
+                break;
+                case 1030086:
+                if(Weapon_Name = "Win94"){
+                textureInfo = hand.WIN94;
+                //*name = "WIN94";
+                }
+                break;
+                case 1030087:
+                if(Weapon_Name = "Win94"){
+                textureInfo = hand.WIN94;
+                //*name = "WIN94";
+                }
+                break;
+                
+                //UZI
+                case 102001:
+                if(Weapon_Name = "Uzi"){
+                textureInfo = hand.UZI;
+                //*name = "UZI";
+                }
+                break;
+                case 1020011:
+                if(Weapon_Name = "Uzi"){
+                textureInfo = hand.UZI;
+                //*name = "UZI";
+                }
+                break;
+                case 1020012:
+                if(Weapon_Name = "Uzi"){
+                textureInfo = hand.UZI;
+                //*name = "UZI";
+                }
+                break;
+                case 1020013:
+                if(Weapon_Name = "Uzi"){
+                textureInfo = hand.UZI;
+                //*name = "UZI";
+                }
+                break;
+                case 1020014:
+                if(Weapon_Name = "Uzi"){
+                textureInfo = hand.UZI;
+                //*name = "UZI";
+                }
+                break;
+                case 1020015:
+                if(Weapon_Name = "Uzi"){
+                textureInfo = hand.UZI;
+                //*name = "UZI";
+                }
+                break;
+                case 1020016:
+                if(Weapon_Name = "Uzi"){
+                textureInfo = hand.UZI;
+                //*name = "UZI";
+                }
+                break;
+                case 1020017:
+                if(Weapon_Name = "Uzi"){
+                textureInfo = hand.UZI;
+                //*name = "UZI";
+                }
+                break;
+                
+                //汤姆逊
+                case 102004:
+                if(Weapon_Name = "TommyGun"){
+                textureInfo = hand.汤姆逊;
+                //*name = "TommyGun";
+                }
+                break;
+                case 1020041:
+                if(Weapon_Name = "TommyGun"){
+                textureInfo = hand.汤姆逊;
+                //*name = "TommyGun";
+                }
+                break;
+                case 1020042:
+                if(Weapon_Name = "TommyGun"){
+                textureInfo = hand.汤姆逊;
+                //*name = "TommyGun";
+                }
+                break;
+                case 1020043:
+                if(Weapon_Name = "TommyGun"){
+                textureInfo = hand.汤姆逊;
+                //*name = "TommyGun";
+                }
+                break;
+                case 1020044:
+                if(Weapon_Name = "TommyGun"){
+                textureInfo = hand.汤姆逊;
+                //*name = "TommyGun";
+                }
+                break;
+                case 1020045:
+                if(Weapon_Name = "TommyGun"){
+                textureInfo = hand.汤姆逊;
+                //*name = "TommyGun";
+                }
+                break;
+                case 1020046:
+                if(Weapon_Name = "TommyGun"){
+                textureInfo = hand.汤姆逊;
+                //*name = "TommyGun";
+                }
+                break;
+                case 1020074:
+                if(Weapon_Name = "TommyGun"){
+                textureInfo = hand.汤姆逊;
+                //*name = "TommyGun";
+                }
+                break;
+                
+                //Vector
+                case 102003:
+                if(Weapon_Name = "Vector"){
+                textureInfo = hand.Vector;
+                //*name = "Vector";
+                }
+                break;
+                case 1020031:
+                if(Weapon_Name = "Vector"){
+                textureInfo = hand.Vector;
+                //*name = "Vector";
+                }
+                break;
+                case 1020032:
+                if(Weapon_Name = "Vector"){
+                textureInfo = hand.Vector;
+                //*name = "Vector";
+                }
+                break;
+                case 1020033:
+                if(Weapon_Name = "Vector"){
+                textureInfo = hand.Vector;
+                //*name = "Vector";
+                }
+                break;
+                case 1020034:
+                if(Weapon_Name = "Vector"){
+                textureInfo = hand.Vector;
+                //*name = "Vector";
+                }
+                break;
+                case 1020035:
+                if(Weapon_Name = "Vector"){
+                textureInfo = hand.Vector;
+                //*name = "Vector";
+                }
+                break;
+                case 1020036:
+                if(Weapon_Name = "Vector"){
+                textureInfo = hand.Vector;
+                //*name = "Vector";
+                }
+                break;
+                case 1020037:
+                if(Weapon_Name = "Vector"){
+                textureInfo = hand.Vector;
+                //*name = "Vector";
+                }
+                break;
+                
+                //UMP9
+                case 102002:
+                if(Weapon_Name = "UMP9"){
+                textureInfo = hand.UMP9;
+                //*name = "UMP9";
+                }
+                break;
+                case 1020021:
+                if(Weapon_Name = "UMP9"){
+                textureInfo = hand.UMP9;
+                //*name = "UMP9";
+                }
+                break;
+                case 1020022:
+                if(Weapon_Name = "UMP9"){
+                textureInfo = hand.UMP9;
+                //*name = "UMP9";
+                }
+                break;
+                case 1020023:
+                if(Weapon_Name = "UMP9"){
+                textureInfo = hand.UMP9;
+                //*name = "UMP9";
+                }
+                break;
+                case 1020024:
+                if(Weapon_Name = "UMP9"){
+                textureInfo = hand.UMP9;
+                //*name = "UMP9";
+                }
+                break;
+                case 1020025:
+                if(Weapon_Name = "UMP9"){
+                textureInfo = hand.UMP9;
+                //*name = "UMP9";
+                }
+                break;
+                case 1020026:
+                if(Weapon_Name = "UMP9"){
+                textureInfo = hand.UMP9;
+                //*name = "UMP9";
+                }
+                break;
+                case 1020027:
+                if(Weapon_Name = "UMP9"){
+                textureInfo = hand.UMP9;
+                //*name = "UMP9";
+                }
+                break;
+                
+                //VSS
+                case 103005:
+                if(Weapon_Name = "VSS"){
+                textureInfo = hand.VSS;
+                //*name = "VSS";
+                }
+                break;
+                case 1030051:
+                if(Weapon_Name = "VSS"){
+                textureInfo = hand.VSS;
+                //*name = "VSS";
+                }
+                break;
+                case 1030052:
+                if(Weapon_Name = "VSS"){
+                textureInfo = hand.VSS;
+                //*name = "VSS";
+                }
+                break;
+                case 1030053:
+                if(Weapon_Name = "VSS"){
+                textureInfo = hand.VSS;
+                //*name = "VSS";
+                }
+                break;
+                case 1030054:
+                if(Weapon_Name = "VSS"){
+                textureInfo = hand.VSS;
+                //*name = "VSS";
+                }
+                break;
+                case 1030055:
+                if(Weapon_Name = "VSS"){
+                textureInfo = hand.VSS;
+                //*name = "VSS";
+                }
+                break;
+                case 1030056:
+                if(Weapon_Name = "VSS"){
+                textureInfo = hand.VSS;
+                //*name = "VSS";
+                }
+                break;
+                case 1030057:
+                if(Weapon_Name = "VSS"){
+                textureInfo = hand.VSS;
+                //*name = "VSS";
+                }
+                break;
+                
+                //M416
+                case 101004:
+                if(Weapon_Name = "M416"){
+                textureInfo = hand.M416;
+                //*name = "M416";
+                }
+                break;
+                case 1010041:
+                if(Weapon_Name = "M416"){
+                textureInfo = hand.M416;
+                //*name = "M416";
+                }
+                break;
+                case 1010042:
+                if(Weapon_Name = "M416"){
+                textureInfo = hand.M416;
+                //*name = "M416";
+                }
+                break;
+                case 1010043:
+                if(Weapon_Name = "M416"){
+                textureInfo = hand.M416;
+                //*name = "M416";
+                }
+                break;
+                case 1010044:
+                if(Weapon_Name = "M416"){
+                textureInfo = hand.M416;
+                //*name = "M416";
+                }
+                break;
+                case 1010045:
+                if(Weapon_Name = "M416"){
+                textureInfo = hand.M416;
+                //*name = "M416";
+                }
+                break;
+                case 1010046:
+                if(Weapon_Name = "M416"){
+                textureInfo = hand.M416;
+                //*name = "M416";
+                }
+                break;
+                case 1010047:
+                if(Weapon_Name = "M416"){
+                textureInfo = hand.M416;
+                //*name = "M416";
+                }
+                break;
+                
+                //MK14
+                case 103007:
+                if(Weapon_Name = "MK14"){
+                textureInfo = hand.MK14;
+                //*name = "MK14";
+                }
+                break;
+                case 1030071:
+                if(Weapon_Name = "MK14"){
+                textureInfo = hand.MK14;
+                //*name = "MK14";
+                }
+                break;
+                case 1030072:
+                if(Weapon_Name = "MK14"){
+                textureInfo = hand.MK14;
+                //*name = "MK14";
+                }
+                break;
+                case 1030073:
+                if(Weapon_Name = "MK14"){
+                textureInfo = hand.MK14;
+                //*name = "MK14";
+                }
+                break;
+                case 1030074:
+                if(Weapon_Name = "MK14"){
+                textureInfo = hand.MK14;
+                //*name = "MK14";
+                }
+                break;
+                case 1030075:
+                if(Weapon_Name = "MK14"){
+                textureInfo = hand.MK14;
+                //*name = "MK14";
+                }
+                break;
+                case 1030076:
+                if(Weapon_Name = "MK14"){
+                textureInfo = hand.MK14;
+                //*name = "MK14";
+                }
+                break;
+                case 1030077:
+                if(Weapon_Name = "MK14"){
+                textureInfo = hand.MK14;
+                //*name = "MK14";
+                }
+                break;
+                
+                //SLR
+                case 103009:
+                if(Weapon_Name = "SLR"){
+                textureInfo = hand.SLR;
+                //*name = "SLR";
+                }
+                break;
+                case 1030091:
+                if(Weapon_Name = "SLR"){
+                textureInfo = hand.SLR;
+                //*name = "SLR";
+                }
+                break;
+                case 1030092:
+                if(Weapon_Name = "SLR"){
+                textureInfo = hand.SLR;
+                //*name = "SLR";
+                }
+                break;
+                case 1030093:
+                if(Weapon_Name = "SLR"){
+                textureInfo = hand.SLR;
+                //*name = "SLR";
+                }
+                break;
+                case 1030094:
+                if(Weapon_Name = "SLR"){
+                textureInfo = hand.SLR;
+                //*name = "SLR";
+                }
+                break;
+                case 1030095:
+                if(Weapon_Name = "SLR"){
+                textureInfo = hand.SLR;
+                //*name = "SLR";
+                }
+                break;
+                case 1030096:
+                if(Weapon_Name = "SLR"){
+                textureInfo = hand.SLR;
+                //*name = "SLR";
+                }
+                break;
+                case 1030097:
+                if(Weapon_Name = "SLR"){
+                textureInfo = hand.SLR;
+                //*name = "SLR";
+                }
+                break;
+                
+                //MK47
+                case 101009:
+                if(Weapon_Name = "Mk47"){
+                textureInfo = hand.MK47;
+                //*name = "Mk47";
+                }
+                break;
+                case 1010091:
+                if(Weapon_Name = "Mk47"){
+                textureInfo = hand.MK47;
+                //*name = "Mk47";
+                }
+                break;
+                case 1010092:
+                if(Weapon_Name = "Mk47"){
+                textureInfo = hand.MK47;
+                //*name = "Mk47";
+                }
+                break;
+                case 1010093:
+                if(Weapon_Name = "Mk47"){
+                textureInfo = hand.MK47;
+                //*name = "Mk47";
+                }
+                break;
+                case 1010094:
+                if(Weapon_Name = "Mk47"){
+                textureInfo = hand.MK47;
+                //*name = "Mk47";
+                }
+                break;
+                case 1010095:
+                if(Weapon_Name = "Mk47"){
+                textureInfo = hand.MK47;
+                //*name = "Mk47";
+                }
+                break;
+                case 1010096:
+                if(Weapon_Name = "Mk47"){
+                textureInfo = hand.MK47;
+                //*name = "Mk47";
+                }
+                break;
+                case 1010097:
+                if(Weapon_Name = "Mk47"){
+                textureInfo = hand.MK47;
+                //*name = "Mk47";
+                }
+                break;
+                
+                //M762
+                case 101008:
+                if(Weapon_Name = "M762"){
+                textureInfo = hand.M762;
+                //*name = "M762";
+                }
+                break;
+                case 1010081:
+                if(Weapon_Name = "M762"){
+                textureInfo = hand.M762;
+                //*name = "M762";
+                }
+                break;
+                case 1010082:
+                if(Weapon_Name = "M762"){
+                textureInfo = hand.M762;
+                //*name = "M762";
+                }
+                break;
+                case 1010083:
+                if(Weapon_Name = "M762"){
+                textureInfo = hand.M762;
+                //*name = "M762";
+                }
+                break;
+                case 1010084:
+                if(Weapon_Name = "M762"){
+                textureInfo = hand.M762;
+                //*name = "M762";
+                }
+                break;
+                case 1010085:
+                if(Weapon_Name = "M762"){
+                textureInfo = hand.M762;
+                //*name = "M762";
+                }
+                break;
+                case 1010086:
+                if(Weapon_Name = "M762"){
+                textureInfo = hand.M762;
+                //*name = "M762";
+                }
+                break;
+                case 1010087:
+                if(Weapon_Name = "M762"){
+                textureInfo = hand.M762;
+                //*name = "M762";
+                }
+                break;
+                
+                //QBZ
+                case 101007:
+                if(Weapon_Name = "QBZ"){
+                textureInfo = hand.QBZ;
+                //*name = "QBZ";
+                }
+                break;
+                case 1010071:
+                if(Weapon_Name = "QBZ"){
+                textureInfo = hand.QBZ;
+                //*name = "QBZ";
+                }
+                break;
+                case 1010072:
+                if(Weapon_Name = "QBZ"){
+                textureInfo = hand.QBZ;
+                //*name = "QBZ";
+                }
+                break;
+                case 1010073:
+                if(Weapon_Name = "QBZ"){
+                textureInfo = hand.QBZ;
+                //*name = "QBZ";
+                }
+                break;
+                case 1010074:
+                if(Weapon_Name = "QBZ"){
+                textureInfo = hand.QBZ;
+                //*name = "QBZ";
+                }
+                break;
+                case 1010075:
+                if(Weapon_Name = "QBZ"){
+                textureInfo = hand.QBZ;
+                //*name = "QBZ";
+                }
+                break;
+                case 1010076:
+                if(Weapon_Name = "QBZ"){
+                textureInfo = hand.QBZ;
+                //*name = "QBZ";
+                }
+                break;
+                case 1010077:
+                if(Weapon_Name = "QBZ"){
+                textureInfo = hand.QBZ;
+                //*name = "QBZ";
+                }
+                break;
+                
+                //QBU
+                case 103010:
+                if(Weapon_Name = "QBU"){
+                textureInfo = hand.QBU;
+                //*name = "QBU";
+                }
+                break;
+                case 1030101:
+                if(Weapon_Name = "QBU"){
+                textureInfo = hand.QBU;
+                //*name = "QBU";
+                }
+                break;
+                case 1030102:
+                if(Weapon_Name = "QBU"){
+                textureInfo = hand.QBU;
+                //*name = "QBU";
+                }
+                break;
+                case 1030103:
+                if(Weapon_Name = "QBU"){
+                textureInfo = hand.QBU;
+                //*name = "QBU";
+                }
+                break;
+                case 1030104:
+                if(Weapon_Name = "QBU"){
+                textureInfo = hand.QBU;
+                //*name = "QBU";
+                }
+                break;
+                case 1030105:
+                if(Weapon_Name = "QBU"){
+                textureInfo = hand.QBU;
+                //*name = "QBU";
+                }
+                break;
+                case 1030106:
+                if(Weapon_Name = "QBU"){
+                textureInfo = hand.QBU;
+                //*name = "QBU";
+                }
+                break;
+                case 1030107:
+                if(Weapon_Name = "QBU"){
+                textureInfo = hand.QBU;
+                //*name = "QBU";
+                }
+                break;
+                
+                //S1897
+                case 104002:
+                if(Weapon_Name = "S1897"){
+                textureInfo = hand.S1897;
+                //*name = "S1897";
+                }
+                break;
+                case 1040021:
+                if(Weapon_Name = "S1897"){
+                textureInfo = hand.S1897;
+                //*name = "S1897";
+                }
+                break;
+                case 1040022:
+                if(Weapon_Name = "S1897"){
+                textureInfo = hand.S1897;
+                //*name = "S1897";
+                }
+                break;
+                case 1040023:
+                if(Weapon_Name = "S1897"){
+                textureInfo = hand.S1897;
+                //*name = "S1897";
+                }
+                break;
+                case 1040024:
+                if(Weapon_Name = "S1897"){
+                textureInfo = hand.S1897;
+                //*name = "S1897";
+                }
+                break;
+                case 1040025:
+                if(Weapon_Name = "S1897"){
+                textureInfo = hand.S1897;
+                //*name = "S1897";
+                }
+                break;
+                case 1040026:
+                if(Weapon_Name = "S1897"){
+                textureInfo = hand.S1897;
+                //*name = "S1897";
+                }
+                break;
+                case 1040027:
+                if(Weapon_Name = "S1897"){
+                textureInfo = hand.S1897;
+                //*name = "S1897";
+                }
+                break;
+                
+                //S12K
+                case 104003:
+                if(Weapon_Name = "S12K"){
+                textureInfo = hand.S12K;
+                //*name = "S12K";
+                }
+                break;
+                case 1040031:
+                if(Weapon_Name = "S12K"){
+                textureInfo = hand.S12K;
+                //*name = "S12K";
+                }
+                break;
+                case 1040032:
+                if(Weapon_Name = "S12K"){
+                textureInfo = hand.S12K;
+                //*name = "S12K";
+                }
+                break;
+                case 1040033:
+                if(Weapon_Name = "S12K"){
+                textureInfo = hand.S12K;
+                //*name = "S12K";
+                }
+                break;
+                case 1040034:
+                if(Weapon_Name = "S12K"){
+                textureInfo = hand.S12K;
+                //*name = "S12K";
+                }
+                break;
+                case 1040035:
+                if(Weapon_Name = "S12K"){
+                textureInfo = hand.S12K;
+                //*name = "S12K";
+                }
+                break;
+                case 1040036:
+                if(Weapon_Name = "S12K"){
+                textureInfo = hand.S12K;
+                //*name = "S12K";
+                }
+                break;
+                case 1040037:
+                if(Weapon_Name = "S12K"){
+                textureInfo = hand.S12K;
+                //*name = "S12K";
+                }
+                break;
+                
+                //S686
+                case 104001:
+                if(Weapon_Name = "S686"){
+                textureInfo = hand.S686;
+                //*name = "S686";
+                }
+                break;
+                case 1040011:
+                if(Weapon_Name = "S686"){
+                textureInfo = hand.S686;
+                //*name = "S686";
+                }
+                break;
+                case 1040012:
+                if(Weapon_Name = "S686"){
+                textureInfo = hand.S686;
+                //*name = "S686";
+                }
+                break;
+                case 1040013:
+                if(Weapon_Name = "S686"){
+                textureInfo = hand.S686;
+                //*name = "S686";
+                }
+                break;
+                case 1040014:
+                if(Weapon_Name = "S686"){
+                textureInfo = hand.S686;
+                //*name = "S686";
+                }
+                break;
+                case 1040015:
+                if(Weapon_Name = "S686"){
+                textureInfo = hand.S686;
+                //*name = "S686";
+                }
+                break;
+                case 1040016:
+                if(Weapon_Name = "S686"){
+                textureInfo = hand.S686;
+                //*name = "S686";
+                }
+                break;
+                case 1040017:
+                if(Weapon_Name = "S686"){
+                textureInfo = hand.S686;
+                //*name = "S686";
+                }
+                break;
+                
+                //拳头👊
+                case 108004:
+                if(Weapon_Name = "Pan"){
+                textureInfo = hand.拳头;
+                //*name = "Pan";
+                }
+                break;
+                
+                //AWM
+                case 103003:
+                if(Weapon_Name = "AWM"){
+                textureInfo = hand.AWM;
+                //*name = "AWM";
+                }
+                break;
+                case 1030031:
+                if(Weapon_Name = "AWM"){
+                textureInfo = hand.AWM;
+                //*name = "AWM";
+                }
+                break;
+                case 1030032:
+                if(Weapon_Name = "AWM"){
+                textureInfo = hand.AWM;
+                //*name = "AWM";
+                }
+                break;
+                case 1030033:
+                if(Weapon_Name = "AWM"){
+                textureInfo = hand.AWM;
+                //*name = "AWM";
+                }
+                break;
+                case 1030034:
+                if(Weapon_Name = "AWM"){
+                textureInfo = hand.AWM;
+                //*name = "AWM";
+                }
+                break;
+                case 1030035:
+                if(Weapon_Name = "AWM"){
+                textureInfo = hand.AWM;
+                //*name = "AWM";
+                }
+                break;
+                case 1030036:
+                if(Weapon_Name = "AWM"){
+                textureInfo = hand.AWM;
+                //*name = "AWM";
+                }
+                break;
+                case 1030037:
+                if(Weapon_Name = "AWM"){
+                textureInfo = hand.AWM;
+                //*name = "AWM";
+                }
+                break;
+                
+                //M24
+                case 103002:
+                if(Weapon_Name = "M24"){
+                textureInfo = hand.M24;
+                //*name = "M24";
+                }
+                break;
+                case 1030021:
+                if(Weapon_Name = "M24"){
+                textureInfo = hand.M24;
+                //*name = "M24";
+                }
+                break;
+                case 1030022:
+                if(Weapon_Name = "M24"){
+                textureInfo = hand.M24;
+                //*name = "M24";
+                }
+                break;
+                case 1030023:
+                if(Weapon_Name = "M24"){
+                textureInfo = hand.M24;
+                //*name = "M24";
+                }
+                break;
+                case 1030024:
+                if(Weapon_Name = "M24"){
+                textureInfo = hand.M24;
+                //*name = "M24";
+                }
+                break;
+                case 1030025:
+                if(Weapon_Name = "M24"){
+                textureInfo = hand.M24;
+                //*name = "M24";
+                }
+                break;
+                case 1030026:
+                if(Weapon_Name = "M24"){
+                textureInfo = hand.M24;
+                //*name = "M24";
+                }
+                break;
+                case 1030027:
+                if(Weapon_Name = "M24"){
+                textureInfo = hand.M24;
+                //*name = "M24";
+                }
+                break;
+                }
+            DrawImage((int) (HeadPosSC.x - 1 - (float) textureInfo.w / 2), (int) (HeadPosSC.y - 50 - (float) textureInfo.y / 2.5f), textureInfo.w, textureInfo.h, textureInfo.textureId);
+                }
+            } 
+                        else {
+            
+            
+            textureInfo = hand.拳头;
+            
+            DrawImage((int) (HeadPosSC.x - 1 - (float) textureInfo.w / 2), (int) (HeadPosSC.y - 50 - (float) textureInfo.y / 2.5f), textureInfo.w, textureInfo.h, textureInfo.textureId);
+            }
+        }
+   }
+
+/*
+
+                                if (血量) {
+                                    int CurHP = (int) std::max(0, std::min((int) Player->Health,
+                                                                           (int) Player->HealthMax));
+                                    int MaxHP = (int) Player->HealthMax;
+
+                                    long HPColor = IM_COL32(
+                                            std::min(((510 * (MaxHP - CurHP)) / MaxHP), 255),
+                                            std::min((510 * CurHP) / MaxHP, 255), 0, 155);
+
+                                    if (Player->Health == 0.0f && !Player->bDead) {
+                                        HPColor = IM_COL32(255, 0, 0, 155);
+
+                                        CurHP = Player->NearDeathBreath;
+                                        if (Player->NearDeatchComponent) {
+                                            MaxHP = Player->NearDeatchComponent->BreathMax;
+                                        }
+                                    }
+
+                                    float boxWidth = density / 5.0f;
+                                    boxWidth -= std::min(((boxWidth / 2) / 500.0f) * Distance,
+                                                         boxWidth / 2);
+                                    float boxHeight = boxWidth * 0.15f;
+
+                                    ImVec2 vStart = {HeadPosSC.x - (boxWidth / 2),
+                                                     HeadPosSC.y - (boxHeight * 1.5f)};
+
+                                    ImVec2 vEndFilled = {vStart.x + (CurHP * boxWidth / MaxHP),
+                                                         vStart.y + boxHeight};
+                                    ImVec2 vEndRect = {vStart.x + boxWidth, vStart.y + boxHeight};
+
+                                    draw->AddRectFilled(vStart, vEndFilled, HPColor);
+                                    draw->AddRect(vStart, vEndRect, IM_COL32(0, 0, 0, 155));
+                                }
+
+
+
+	 if (信息 || 信息 || 信息) {
+        float boxHeight = abs(HeadPosSC.y - RootPosSC.y);
+        float boxWidth = boxHeight * 0.65f;
+        std::string s;
+        
+        
+
+        if (信息) {
+            s += "(";
+            s += std::to_string(Player->TeamID);
+            s += ")";
+        }
+
+      if (信息) {
+          if (Player->bEnsure) {
+        s += " bot ";
+    } else {
+        s +=Player->PlayerName.ToString();
+    }              
+            s += std::to_string((int)Distance);
+            s += " m";
+        }
+        
+auto textSize = ImGui::CalcTextSize2(s.c_str(), 0, ((float) density / 45.0f));
+draw->AddText(NULL, ((float) density / 25.0f), {RootPosSC.x - (textSize.x / 2), RootPosSC.y}, IM_COL32(255, 255, 255, 255), s.c_str());
+}
+}
+}*/
+/*
+            if (血量) {
+                std::string s = "HP:";
+                s += std::to_string((int)(100 * Player->Health / Player->HealthMax));
+                auto textSize = ImGui::CalcTextSize2(s.c_str(), 0, ((float) density / 23.0f));
+                draw->AddText(NULL, ((float) density / 23.0f), {RootPosSC.x - (textSize.x / 2), RootPosSC.y + 10}, IM_COL32(255, 255, 255, 255), s.c_str());
+            }
+            
+            if (信息 || 信息) {
+                std::string s;
+                if (信息) {
+                    s += std::to_string(Player->TeamID);
+                    s += "．";
+                }
+                if (信息) {
+                    if (Player->bEnsure) {
+                        s += "Bot";
+                        } else {
+                        if (Player->PlayerName.IsValid()) {
+                            s += Player->PlayerName.ToString();
+                        }
+                auto textSize = ImGui::CalcTextSize2(s.c_str(), 0, ((float) density / 23.0f));
+                draw->AddText(NULL, ((float) density / 23.0f),{HeadPosSC.x - (textSize.x / 2), HeadPosSC.y - 30},IM_COL32(255, 255, 255, 255), s.c_str());
+            }
+            }
+            }
+                if (信息) {
+                    std::string s;
+                    s += std::to_string((int) Distance);
+                    s += "M";
+                    auto textSize = ImGui::CalcTextSize2(s.c_str(), 0, ((float) density / 23.0f));
+                    draw->AddText(NULL, ((float) density / 23.0f), {RootPosSC.x - (textSize.x / 2), RootPosSC.y - (textSize.y / 2)}, IM_COL32(255, 255, 255, 255), s.c_str());
+                    }
+                }
+            }*/
+            
+if (血量) {
+int CurHP = (int) std::max(0, std::min((int) Player->Health,100));
+int MaxHP = 100;
+draw->AddRectFilled({HeadPosSC.x-119,HeadPosSC.y-50},{HeadPosSC.x+125, HeadPosSC.y-5},半黑,5,0);//信息背景
+draw->AddRectFilled({HeadPosSC.x-110,HeadPosSC.y-18}, {HeadPosSC.x-99+(2.161 * CurHP),HeadPosSC.y-9},ImColor(000,255,000,255),5,0);//血条背景
+//泛滥频道 @QBTZPD0 使用不进频道死全家 转发不带频道死全家 全家原地螺旋升天爆炸
+if (Player->Health == 0.0f && !Player->bDead) {
+CurHP = Player->NearDeathBreath;
+if (Player->NearDeatchComponent) {
+MaxHP = 100;
+draw->AddRectFilled({HeadPosSC.x-110,HeadPosSC.y-18}, {HeadPosSC.x-99+(2.161 * CurHP),HeadPosSC.y-9},ImColor(255,000,000,255),5,0);//血条背景
+}
+}
+}
+//泛滥频道 @QBTZPD0 使用不进频道死全家 转发不带频道死全家 全家原地螺旋升天爆炸
+if (信息) {
+std::string s;
+if (Player->bEnsure) {
+s += "[AI]";
+} else {
+s += "[";
+s += std::to_string((int)Player->TeamID);
+s += "]";
+}
+绘制加粗文本(20, HeadPosSC.x -110, HeadPosSC.y - 50, 白色, s.c_str());
+}
+//泛滥频道 @QBTZPD0 使用不进频道死全家 转发不带频道死全家 全家原地螺旋升天爆炸
+if (信息) {
+std::string s;
+if (Player->bEnsure) {
+s += "[";
+s += "智能机器人";
+s += "]";
+} else {
+s += "[";
+s += Player->PlayerName.ToString();
+s += "]";
+}
+绘制加粗文本(20, HeadPosSC.x - 65, HeadPosSC.y- 50, 白色, s.c_str());
+}
+//泛滥频道 @QBTZPD0 使用不进频道死全家 转发不带频道死全家 全家原地螺旋升天爆炸
+if (手持) {
+std::string WeaponName;
+auto WeaponManagerComponent = Player->WeaponManagerComponent;
+if (WeaponManagerComponent) {
+auto CurrentWeaponReplicated = (ASTExtraShootWeapon *) WeaponManagerComponent->CurrentWeaponReplicated;
+if (CurrentWeaponReplicated) {
+auto WeaponNameNum = CurrentWeaponReplicated->GetWeaponID();
+auto 当前子弹= CurrentWeaponReplicated->CurBulletNumInClip;
+auto 最大子弹 = CurrentWeaponReplicated->CurMaxBulletNumInOneClip;
+switch (WeaponNameNum) {
+case 107001:
+WeaponName += "弓弩 十字弩";
+break;
+case 1070011:
+WeaponName += "弓弩 十字弩";
+break;
+case 1070012:
+WeaponName += "弓弩 十字弩";
+break;
+case 1070013:
+WeaponName += "弓弩 十字弩";
+break;
+case 1070014:
+WeaponName += "弓弩 十字弩";
+break;
+case 1070015:
+WeaponName += "弓弩 十字弩";
+break;
+case 1070016:
+WeaponName += "弓弩 十字弩";
+break;
+case 1070017:
+WeaponName += "弓弩 十字弩";
+break;
+
+//狗杂
+case 101005:
+WeaponName += "自动步枪 狗砸";
+break;
+case 1010051:
+WeaponName += "自动步枪 狗砸";
+break;
+case 1010052:
+WeaponName += "自动步枪 狗砸";
+break;
+case 1010053:
+WeaponName += "自动步枪 狗砸";
+break;
+case 1010054:
+WeaponName += "自动步枪 狗砸";
+break;
+case 1010055:
+WeaponName += "自动步枪 狗砸";
+break;
+case 1010056:
+WeaponName += "自动步枪 狗砸";
+break;
+case 1010057:
+WeaponName += "自动步枪 狗砸";
+break;
+
+//连发狙 SKS
+case 103004:
+WeaponName += "连发狙 SKS";
+break;
+case 1030041:
+WeaponName += "连发狙 SKS";
+break;
+case 1030042:
+WeaponName += "连发狙 SKS";
+break;
+case 1030043:
+WeaponName += "连发狙 SKS";
+break;
+case 1030044:
+WeaponName += "连发狙 SKS";
+break;
+case 1030045:
+WeaponName += "连发狙 SKS";
+break;
+case 1030046:
+WeaponName += "连发狙 SKS";
+break;
+case 1030047:
+WeaponName += "连发狙 SKS";
+break;
+
+//机枪 M249                               
+case 105001:
+WeaponName += "机枪 M249";
+break;
+case 1050011:
+WeaponName += "机枪 M249";
+break;
+case 1050012:
+WeaponName += "机枪 M249";
+break;
+case 1050013:
+WeaponName += "机枪 M249";
+break;
+case 1050014:
+WeaponName += "机枪 M249";
+break;
+case 1050015:
+WeaponName += "机枪 M249";
+break;
+case 1050016:
+WeaponName += "机枪 M249";
+break;
+case 1050017:
+WeaponName += "机枪 M249";
+break;
+
+//机枪 DP28
+case 105002:
+WeaponName += "机枪 DP28";
+break;
+case 1050021:
+WeaponName += "机枪 DP28";
+break;
+case 1050022:
+WeaponName += "机枪 DP28";
+break;
+case 1050023:
+WeaponName += "机枪 DP28";
+break;
+case 1050024:
+WeaponName += "机枪 DP28";
+break;
+case 1050025:
+WeaponName += "机枪 DP28";
+break;
+case 1050026:
+WeaponName += "机枪 DP28";
+break;
+case 1050027:
+WeaponName += "机枪 DP28";
+break;
+
+//单发狙 Kar98K
+case 103001:
+WeaponName += "单发狙 Kar98K";
+break;
+case 1030011:
+WeaponName += "单发狙 Kar98K";
+break;
+case 1030012:
+WeaponName += "单发狙 Kar98K";
+break;
+case 1030013:
+WeaponName += "单发狙 Kar98K";
+break;
+case 1030014:
+WeaponName += "单发狙 Kar98K";
+break;
+case 1030015:
+WeaponName += "单发狙 Kar98K";
+break;
+case 1030016:
+WeaponName += "单发狙 Kar98K";
+break;
+case 1030017:
+WeaponName += "单发狙 Kar98K";
+break;
+
+//手枪 R1895
+case 106003:
+WeaponName += "手枪 R1895";
+break;
+case 1060031:
+WeaponName += "手枪 R1895";
+break;
+case 1060032:
+WeaponName += "手枪 R1895";
+break;
+case 1060033:
+WeaponName += "手枪 R1895";
+break;
+case 1060034:
+WeaponName += "手枪 R1895";
+break;
+case 1060035:
+WeaponName += "手枪 R1895";
+break;
+case 1060036:
+WeaponName += "手枪 R1895";
+break;
+case 1060037:
+WeaponName += "手枪 R1895";
+break;
+
+
+case 106006:
+WeaponName += "散弹枪 短管散弹枪";
+break;
+case 106001:
+WeaponName += "手枪 P92";
+break;
+case 106002:
+WeaponName += "手枪 P1911";
+break;
+case 106004:
+WeaponName += "手枪 P18C";
+break;
+
+
+case 1060051:
+WeaponName += "手枪 R45";
+break;
+case 1060052:
+WeaponName += "手枪 R45";
+break;
+case 1060053:
+WeaponName += "手枪 R45";
+break;
+case 1060054:
+WeaponName += "手枪 R45";
+break;
+case 1060055:
+WeaponName += "手枪 R45";
+break;
+case 1060056:
+WeaponName += "手枪 R45";
+break;
+case 1060057:
+WeaponName += "手枪 R45";
+break;
+
+//自动步枪 AKM
+case 101001:
+WeaponName += "自动步枪 AKM";
+break;
+case 1010011:
+WeaponName += "自动步枪 AKM";
+break;
+case 1010012:
+WeaponName += "自动步枪 AKM";
+break;
+case 1010013:
+WeaponName += "自动步枪 AKM";
+break;
+case 1010014:
+WeaponName += "自动步枪 AKM";
+break;
+case 1010015:
+WeaponName += "自动步枪 AKM";
+break;
+case 1010016:
+WeaponName += "自动步枪 AKM";
+break;
+case 1010017:
+WeaponName += "自动步枪 AKM";
+break;
+
+//自动步枪 G36C
+case 101010:
+WeaponName += "自动步枪 G36C";
+break;
+case 1010101:
+WeaponName += "自动步枪 G36C";
+break;
+case 1010102:
+WeaponName += "自动步枪 G36C";
+break;
+case 1010103:
+WeaponName += "自动步枪 G36C";
+break;
+case 1010104:
+WeaponName += "自动步枪 G36C";
+break;
+case 1010105:
+WeaponName += "自动步枪 G36C";
+break;
+case 1010106:
+WeaponName += "自动步枪 G36C";
+break;
+case 1010107:
+WeaponName += "自动步枪 G36C";
+break;
+
+//自动步枪 ACVAL                
+case 101100:
+WeaponName += "自动步枪 ACVAL";
+break;
+case 1011001:
+WeaponName += "自动步枪 ACVAL";
+break;
+case 1011002:
+WeaponName += "自动步枪 ACVAL";
+break;
+case 1011003:
+WeaponName += "自动步枪 ACVAL";
+break;
+case 1011004:
+WeaponName += "自动步枪 ACVAL";
+break;
+case 1011005:
+WeaponName += "自动步枪 ACVAL";
+break;
+case 1011006:
+WeaponName += "自动步枪 ACVAL";
+break;
+case 1011007:
+WeaponName += "自动步枪 ACVAL";
+break;
+
+//自动步枪 AUG
+case 101006:
+WeaponName += "自动步枪 AUG";
+break;
+case 1010061:
+WeaponName += "自动步枪 AUG";
+break;
+case 1010062:
+WeaponName += "自动步枪 AUG";
+break;
+case 1010063:
+WeaponName += "自动步枪 AUG";
+break;
+case 1010064:
+WeaponName += "自动步枪 AUG";
+break;
+case 1010065:
+WeaponName += "自动步枪 AUG";
+break;
+case 1010066:
+WeaponName += "自动步枪 AUG";
+break;
+case 1010067:
+WeaponName += "自动步枪 AUG";
+break;
+
+//连发狙 Mini14
+case 103006:
+WeaponName += "连发狙 Mini14";
+break;
+case 1030061:
+WeaponName += "连发狙 Mini14";
+break;
+case 1030062:
+WeaponName += "连发狙 Mini14";
+break;
+case 1030063:
+WeaponName += "连发狙 Mini14";
+break;
+case 1030064:
+WeaponName += "连发狙 Mini14";
+break;
+case 1030065:
+WeaponName += "连发狙 Mini14";
+break;
+case 1030066:
+WeaponName += "连发狙 Mini14";
+break;
+case 1030067:
+WeaponName += "连发狙 Mini14";
+break;
+
+//PP19
+case 102005:
+WeaponName += "冲锋枪 野牛";
+break;
+case 1020051:
+WeaponName += "冲锋枪 野牛";
+break;
+case 1020052:
+WeaponName += "冲锋枪 野牛";
+break;
+case 1020053:
+WeaponName += "冲锋枪 野牛";
+break;
+case 1020054:
+WeaponName += "冲锋枪 野牛";
+break;
+case 1020055:
+WeaponName += "冲锋枪 野牛";
+break;
+case 1020056:
+WeaponName += "冲锋枪 野牛";
+break;
+case 1020057:
+WeaponName += "冲锋枪 野牛";
+break;
+
+//自动步枪 M16A4
+case 101002:
+WeaponName += "自动步枪 M16A4";
+break;
+case 1010021:
+WeaponName += "自动步枪 M16A4";
+break;
+case 1010022:
+WeaponName += "自动步枪 M16A4";
+break;
+case 1010023:
+WeaponName += "自动步枪 M16A4";
+break;
+case 1010024:
+WeaponName += "自动步枪 M16A4";
+break;
+case 1010025:
+WeaponName += "自动步枪 M16A4";
+break;
+case 1010026:
+WeaponName += "自动步枪 M16A4";
+break;
+case 1010027:
+WeaponName += "自动步枪 M16A4";
+break;
+
+//死嘎
+case 101003:
+WeaponName += "自动步枪 SCARL";
+break;
+case 1010031:
+WeaponName += "自动步枪 SCARL";
+break;
+case 1010032:
+WeaponName += "自动步枪 SCARL";
+break;
+case 1010033:
+WeaponName += "自动步枪 SCARL";
+break;
+case 1010034:
+WeaponName += "自动步枪 SCARL";
+break;
+case 1010035:
+WeaponName += "自动步枪 SCARL";
+break;
+case 1010036:
+WeaponName += "自动步枪 SCARL";
+break;
+case 1010037:
+WeaponName += "自动步枪 SCARL";
+break;
+//泛滥频道 @QBTZPD0 使用不进频道死全家 转发不带频道死全家 全家原地螺旋升天爆炸
+//单发狙 Win94
+case 103008:
+WeaponName += "单发狙 Win94";
+break;
+case 1030081:
+WeaponName += "单发狙 Win94";
+break;
+case 1030082:
+WeaponName += "单发狙 Win94";
+break;
+case 1030083:
+WeaponName += "单发狙 Win94";
+break;
+case 1030084:
+WeaponName += "单发狙 Win94";
+break;
+case 1030085:
+WeaponName += "单发狙 Win94";
+break;
+case 1030086:
+WeaponName += "单发狙 Win94";
+break;
+case 1030087:
+WeaponName += "单发狙 Win94";
+break;
+
+//冲锋枪 UZI
+case 102001:
+WeaponName += "冲锋枪 UZI";
+break;
+case 1020011:
+WeaponName += "冲锋枪 UZI";
+break;
+case 1020012:
+WeaponName += "冲锋枪 UZI";
+break;
+case 1020013:
+WeaponName += "冲锋枪 UZI";
+break;
+case 1020014:
+WeaponName += "冲锋枪 UZI";
+break;
+case 1020015:
+WeaponName += "冲锋枪 UZI";
+break;
+case 1020016:
+WeaponName += "冲锋枪 UZI";
+break;
+case 1020017:
+WeaponName += "冲锋枪 UZI";
+break;
+
+//冲锋枪 汤姆逊
+case 102004:
+WeaponName += "冲锋枪 汤姆逊";
+break;
+case 1020041:
+WeaponName += "冲锋枪 汤姆逊";
+break;
+case 1020042:
+WeaponName += "冲锋枪 汤姆逊";
+break;
+case 1020043:
+WeaponName += "冲锋枪 汤姆逊";
+break;
+case 1020044:
+WeaponName += "冲锋枪 汤姆逊";
+break;
+case 1020045:
+WeaponName += "冲锋枪 汤姆逊";
+break;
+case 1020046:
+WeaponName += "冲锋枪 汤姆逊";
+break;
+case 1020074:
+WeaponName += "冲锋枪 汤姆逊";
+break;
+
+//冲锋枪 Vector
+case 102003:
+WeaponName += "冲锋枪 Vector";
+break;
+case 1020031:
+WeaponName += "冲锋枪 Vector";
+break;
+case 1020032:
+WeaponName += "冲锋枪 Vector";
+break;
+case 1020033:
+WeaponName += "冲锋枪 Vector";
+break;
+case 1020034:
+WeaponName += "冲锋枪 Vector";
+break;
+case 1020035:
+WeaponName += "冲锋枪 Vector";
+break;
+case 1020036:
+WeaponName += "冲锋枪 Vector";
+break;
+case 1020037:
+WeaponName += "冲锋枪 Vector";
+break;
+
+//冲锋枪 UMP45
+case 102002:
+WeaponName += "冲锋枪 UMP45";
+break;
+case 1020021:
+WeaponName += "冲锋枪 UMP45";
+break;
+case 1020022:
+WeaponName += "冲锋枪 UMP45";
+break;
+case 1020023:
+WeaponName += "冲锋枪 UMP45";
+break;
+case 1020024:
+WeaponName += "冲锋枪 UMP45";
+break;
+case 1020025:
+WeaponName += "冲锋枪 UMP45";
+break;
+case 1020026:
+WeaponName += "冲锋枪 UMP45";
+break;
+case 1020027:
+WeaponName += "冲锋枪 UMP45";
+break;
+
+//连发狙 VSS
+case 103005:
+WeaponName += "连发狙 VSS";
+break;
+case 1030051:
+WeaponName += "连发狙 VSS";
+break;
+case 1030052:
+WeaponName += "连发狙 VSS";
+break;
+case 1030053:
+WeaponName += "连发狙 VSS";
+break;
+case 1030054:
+WeaponName += "连发狙 VSS";
+break;
+case 1030055:
+WeaponName += "连发狙 VSS";
+break;
+case 1030056:
+WeaponName += "连发狙 VSS";
+break;
+case 1030057:
+WeaponName += "连发狙 VSS";
+break;
+//泛滥频道 @QBTZPD0 使用不进频道死全家 转发不带频道死全家 全家原地螺旋升天爆炸
+//自动步枪 M416
+case 101004:
+WeaponName += "自动步枪 M416";
+break;
+case 1010041:
+WeaponName += "自动步枪 M416";
+break;
+case 1010042:
+WeaponName += "自动步枪 M416";
+break;
+case 1010043:
+WeaponName += "自动步枪 M416";
+break;
+case 1010044:
+WeaponName += "自动步枪 M416";
+break;
+case 1010045:
+WeaponName += "自动步枪 M416";
+break;
+case 1010046:
+WeaponName += "自动步枪 M416";
+break;
+case 1010047:
+WeaponName += "自动步枪 M416";
+break;
+
+//连发狙 MK14
+case 103007:
+WeaponName += "连发狙 MK14";
+break;
+case 1030071:
+WeaponName += "连发狙 MK14";
+break;
+case 1030072:
+WeaponName += "连发狙 MK14";
+break;
+case 1030073:
+WeaponName += "连发狙 MK14";
+break;
+case 1030074:
+WeaponName += "连发狙 MK14";
+break;
+case 1030075:
+WeaponName += "连发狙 MK14";
+break;
+case 1030076:
+WeaponName += "连发狙 MK14";
+break;
+case 1030077:
+WeaponName += "连发狙 MK14";
+break;
+
+//连发狙 SLR
+case 103009:
+WeaponName += "连发狙 SLR";
+break;
+case 1030091:
+WeaponName += "连发狙 SLR";
+break;
+case 1030092:
+WeaponName += "连发狙 SLR";
+break;
+case 1030093:
+WeaponName += "连发狙 SLR";
+break;
+case 1030094:
+WeaponName += "连发狙 SLR";
+break;
+case 1030095:
+WeaponName += "连发狙 SLR";
+break;
+case 1030096:
+WeaponName += "连发狙 SLR";
+break;
+case 1030097:
+WeaponName += "连发狙 SLR";
+break;
+
+//自动步枪 MK47
+case 101009:
+WeaponName += "自动步枪 MK47";
+break;
+case 1010091:
+WeaponName += "自动步枪 MK47";
+break;
+case 1010092:
+WeaponName += "自动步枪 MK47";
+break;
+case 1010093:
+WeaponName += "自动步枪 MK47";
+break;
+case 1010094:
+WeaponName += "自动步枪 MK47";
+break;
+case 1010095:
+WeaponName += "自动步枪 MK47";
+break;
+case 1010096:
+WeaponName += "自动步枪 MK47";
+break;
+case 1010097:
+WeaponName += "自动步枪 MK47";
+break;
+
+//自动步枪 M762
+case 101008:
+WeaponName += "自动步枪 M762";
+break;
+case 1010081:
+WeaponName += "自动步枪 M762";
+break;
+case 1010082:
+WeaponName += "自动步枪 M762";
+break;
+case 1010083:
+WeaponName += "自动步枪 M762";
+break;
+case 1010084:
+WeaponName += "自动步枪 M762";
+break;
+case 1010085:
+WeaponName += "自动步枪 M762";
+break;
+case 1010086:
+WeaponName += "自动步枪 M762";
+break;
+case 1010087:
+WeaponName += "自动步枪 M762";
+break;
+
+//自动步枪 QBZ
+case 101007:
+WeaponName += "自动步枪 QBZ";
+break;
+case 1010071:
+WeaponName += "自动步枪 QBZ";
+break;
+case 1010072:
+WeaponName += "自动步枪 QBZ";
+break;
+case 1010073:
+WeaponName += "自动步枪 QBZ";
+break;
+case 1010074:
+WeaponName += "自动步枪 QBZ";
+break;
+case 1010075:
+WeaponName += "自动步枪 QBZ";
+break;
+case 1010076:
+WeaponName += "自动步枪 QBZ";
+break;
+case 1010077:
+WeaponName += "自动步枪 QBZ";
+break;
+
+//自动步枪 QBU
+case 103010:
+WeaponName += "自动步枪 QBU";
+break;
+case 1030101:
+WeaponName += "自动步枪 QBU";
+break;
+case 1030102:
+WeaponName += "自动步枪 QBU";
+break;
+case 1030103:
+WeaponName += "自动步枪 QBU";
+break;
+case 1030104:
+WeaponName += "自动步枪 QBU";
+break;
+case 1030105:
+WeaponName += "自动步枪 QBU";
+break;
+case 1030106:
+WeaponName += "自动步枪 QBU";
+break;
+case 1030107:
+WeaponName += "自动步枪 QBU";
+break;
+
+//散弹枪 S1897
+case 104002:
+WeaponName += "散弹枪 S1897";
+break;
+case 1040021:
+WeaponName += "散弹枪 S1897";
+break;
+case 1040022:
+WeaponName += "散弹枪 S1897";
+break;
+case 1040023:
+WeaponName += "散弹枪 S1897";
+break;
+case 1040024:
+WeaponName += "散弹枪 S1897";
+break;
+case 1040025:
+WeaponName += "散弹枪 S1897";
+break;
+case 1040026:
+WeaponName += "散弹枪 S1897";
+break;
+case 1040027:
+WeaponName += "散弹枪 S1897";
+break;
+
+//散弹枪 S12K
+case 104003:
+WeaponName += "散弹枪 S12K";
+break;
+case 1040031:
+WeaponName += "散弹枪 S12K";
+break;
+case 1040032:
+WeaponName += "散弹枪 S12K";
+break;
+case 1040033:
+WeaponName += "散弹枪 S12K";
+break;
+case 1040034:
+WeaponName += "散弹枪 S12K";
+break;
+case 1040035:
+WeaponName += "散弹枪 S12K";
+break;
+case 1040036:
+WeaponName += "散弹枪 S12K";
+break;
+case 1040037:
+WeaponName += "散弹枪 S12K";
+break;
+
+//散弹枪 S686
+case 104001:
+WeaponName += "散弹枪 S686";
+break;
+case 1040011:
+WeaponName += "散弹枪 S686";
+break;
+case 1040012:
+WeaponName += "散弹枪 S686";
+break;
+case 1040013:
+WeaponName += "散弹枪 S686";
+break;
+case 1040014:
+WeaponName += "散弹枪 S686";
+break;
+case 1040015:
+WeaponName += "散弹枪 S686";
+break;
+case 1040016:
+WeaponName += "散弹枪 S686";
+break;
+case 1040017:
+WeaponName += "散弹枪 S686";
+break;
+
+
+
+//单发狙 AWM
+case 103003:
+WeaponName += "单发狙 AWM";
+break;
+case 1030031:
+WeaponName += "单发狙 AWM";
+break;
+case 1030032:
+WeaponName += "单发狙 AWM";
+break;
+case 1030033:
+WeaponName += "单发狙 AWM";
+break;
+case 1030034:
+WeaponName += "单发狙 AWM";
+break;
+case 1030035:
+WeaponName += "单发狙 AWM";
+break;
+case 1030036:
+WeaponName += "单发狙 AWM";
+break;
+case 1030037:
+WeaponName += "单发狙 AWM";
+break;
+
+//单发狙 M24
+case 103002:
+WeaponName += "单发狙 M24";
+break;
+case 1030021:
+WeaponName += "单发狙 M24";
+break;
+case 1030022:
+WeaponName += "单发狙 M24";
+break;
+case 1030023:
+WeaponName += "单发狙 M24";
+break;
+case 1030024:
+WeaponName += "单发狙 M24";
+break;
+case 1030025:
+WeaponName += "单发狙 M24";
+break;
+case 1030026:
+WeaponName += "单发狙 M24";
+break;
+case 1030027:
+WeaponName += "单发狙 M24";
+break;
+
+
+case 106005:
+WeaponName += "手枪 R45";
+break;
+case 106007:
+case 106008:
+case 106009:
+case 1060010:             
+WeaponName += "手枪 P92";
+break;
+case 108001:
+case 108002:
+case 108003:
+WeaponName += "近战 大砍刀";
+break;
+case 108004:             
+WeaponName += "近战 平底锅";
+break;               
+case 602001:
+WeaponName += "投掷 闪光弹";
+break;
+case 602002:
+WeaponName += "投掷 烟雾弹";
+break;
+case 602003:
+WeaponName += "投掷 燃烧瓶";
+break;      
+case 602004:
+WeaponName += "投掷 手榴弹";
+break;  
+case 0:
+WeaponName += "未知";
+break;
+}
+WeaponName += "[";
+WeaponName += std::to_string((int)当前子弹);
+WeaponName += "/";
+WeaponName += std::to_string((int)最大子弹);
+WeaponName += "]";
+绘制加粗文本(20,HeadPosSC.x - 110, HeadPosSC.y - 37, 黄色, WeaponName.c_str());
+}
+}
+}
+//泛滥频道 @QBTZPD0 使用不进频道死全家 转发不带频道死全家 全家原地螺旋升天爆炸
+if (信息) {
+auto PlayerStat = playerstatus(Player->CurrentStates);
+std::string s = "[";
+s += PlayerStat;
+s += "]";
+if (PlayerStat != "") {
+绘制加粗文本(20, HeadPosSC.x + 75, HeadPosSC.y - 50, 白色, s.c_str());
+}
+}
+                            
+if (骨灰盒) {
+if (Actors[i]->IsA(APickUpListWrapperActor::StaticClass())) {
+auto Pick = (APickUpListWrapperActor *) Actors[i];
+if (!Pick->RootComponent)
+continue;
+auto PickUpDataList = (TArray<FPickUpItemData>)Pick->GetDataList();
+float Distance = Pick->GetDistanceTo(localPlayer) / 100.0f;
+if (Distance >500.0f)//骨灰盒显示最大距离
+continue;
+FVector2D PickUpListsPos;
+FVector origin, extends;
+if (W2S(Pick->K2_GetActorLocation(), & PickUpListsPos)) {
+
+std::string s = "盒子";
+s += " - ";
+s += std::to_string((int) Distance);
+s += " 米";
+draw->AddText(NULL,((float) density / 29.0f),
+{PickUpListsPos.X, PickUpListsPos.Y},
+IM_COL32(0,0,0,255), s.c_str());
+draw->AddText(NULL,((float) density / 30.0f),
+{PickUpListsPos.X, PickUpListsPos.Y},
+IM_COL32(205,255,255,255), s.c_str());
+}
+}
+}
+
+
+if (投掷物) {
+                              if (Actor->IsA(ASTExtraGrenadeBase::StaticClass())) {
+                                auto Grenade = (ASTExtraGrenadeBase *) Actor;
+                                auto RootComponent = Actor->RootComponent;
+                                if (!RootComponent)
+                                continue;
+                                float Distance = Grenade->GetDistanceTo(localPlayer) / 100.f;
+               if (Distance > 50.0f)//投掷物显示最大距离
+               continue;
+                                FVector2D grenadePos;
+                                if (W2S(Grenade->K2_GetActorLocation(), &grenadePos)) {
+               std::string classname = Grenade->GetName();
+               if (classname.find("BP_Grenade_Shoulei_C") != std::string::npos) {
+                                    std::string s =  "碎片手雷";
+                                    s += "(";
+                                    s += std::to_string((int) Distance);
+                                    s += ")";
+                                   draw->AddText(NULL, ((float) density / 30.0f),{grenadePos.X, grenadePos.Y},IM_COL32(255,000,000, 255), s.c_str());
+                 }
+               if (classname.find("BP_Grenade_Smoke_C") != std::string::npos) {
+                                    std::string s =  "烟雾弹";
+                                    s += "(";
+                                    s += std::to_string((int) Distance);
+                                    s += ")";
+                                   draw->AddText(NULL, ((float) density / 30.0f),{grenadePos.X, grenadePos.Y},IM_COL32(255, 255, 255, 255), s.c_str());
+                 }
+               if (classname.find("BP_Grenade_Burn_C") != std::string::npos) {
+                                    std::string s =  "燃烧瓶";
+                                    s += "(";
+                                    s += std::to_string((int) Distance);
+                                    s += ")";
+                                   draw->AddText(NULL, ((float) density / 30.0f),{grenadePos.X, grenadePos.Y},IM_COL32(255,000,000, 255), s.c_str());
+                }
+               if (classname.find("BP_Grenade_Stun_C") != std::string::npos) {
+                                    std::string s =  "震爆弹";
+                                    s += "(";
+                                    s += std::to_string((int) Distance);
+                                    s += ")";
+                                    draw->AddText(NULL, ((float) density / 30.0f),{grenadePos.X, grenadePos.Y},IM_COL32(255, 255, 255, 255), s.c_str());
+     }
+                                }
+                            }
+            }
+
+if (载具) {
+if (Actors[i]->IsA(ASTExtraVehicleBase::StaticClass())) {
+auto Vehicle = (ASTExtraVehicleBase *) Actors[i];
+if (!Vehicle->Mesh)
+continue;
+float Distance = Vehicle->GetDistanceTo(localPlayer) / 100.f;
+FVector2D vehiclePos;
+if (W2S(Vehicle->K2_GetActorLocation(), &vehiclePos)) {
+std::string s = GetVehicleName(Vehicle);
+s += " - ";
+s += std::to_string((int) Distance);
+s += " 米";
+draw->AddText(NULL,((float) density / 29.0f),
+{vehiclePos.X, vehiclePos.Y},
+IM_COL32(0, 0, 0, 255), s.c_str());
+draw->AddText(NULL,((float) density / 30.0f),
+{vehiclePos.X, vehiclePos.Y},
+IM_COL32(255, 255, 000, 255), s.c_str());
+}
+}
+}
+}
+}
+}
